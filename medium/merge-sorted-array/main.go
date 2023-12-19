@@ -7,7 +7,7 @@ import (
 
 func main() {
 	n1 := []int{1, 2, 3, 0, 0, 0}
-	merge(n1, 3, []int{2, 5, 6}, 3)
+	merge2(n1, 3, []int{2, 5, 6}, 3)
 	fmt.Println(n1)
 }
 
