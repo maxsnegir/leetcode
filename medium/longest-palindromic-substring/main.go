@@ -7,21 +7,30 @@ import (
 // ToDo cant
 
 func main() {
-	//fmt.Println(longestPalindrome("babad"), "bab | aba")
+	fmt.Println(longestPalindrome("babad"), "aba")
 	fmt.Println(longestPalindrome("cbbd"), "bb")
-	//fmt.Println(longestPalindrome("c"), "c")
-	//fmt.Println(longestPalindrome(""), "")
+	fmt.Println(longestPalindrome("c"), "c")
+	fmt.Println(longestPalindrome(""), "")
+	fmt.Println(longestPalindrome("xaabcaaa"), "aaa")
 
 }
 
 func longestPalindrome(s string) string {
-	for start := 0; start < len(s); start++ {
-		for end := len(s) - 1; end >= 0; end-- {
+	if len(s) < 2 {
+		return s
+	}
+	left := 0
+	right := len(s) - 1
 
-			if isPalindrome(s, start, end) {
-				return s[start : start+end]
-			}
+	for left < right {
+
+		if isPalindrome(s, left, right) {
+			return s[left:right]
 		}
+		if isPalindrome(s, left+1, right) {
+			return s[left:right]
+		}
+		left++
 	}
 
 	return ""
