@@ -5,33 +5,45 @@ import (
 	"strconv"
 )
 
+// https://leetcode.com/problems/string-compression/
+
 func main() {
-	fmt.Println(compress([]byte{'a', 'a', 'a', 'b', 'b', 'c'}))
+	fmt.Println(compress([]byte{'a', 'a', 'a'}), 1, "a3")
+	fmt.Println(compress([]byte{'a', 'a', 'a', 'b', 'b'}), 3, "a3b2")
 }
 
 func compress(chars []byte) int {
+	curChar := chars[0]
+	writeIdx := 1
+	cnt := 1
 
-	left := 1
-	right := left + 1
-
-	for right < len(chars) {
-		if chars[right] == chars[left] {
-			right++
+	for i := 1; i < len(chars); i++ {
+		if chars[i] == curChar {
+			cnt++
 			continue
 		}
 
-		digits := []byte(strconv.Itoa(right - left))
-		for i := range digits {
-			chars[left] = digits[i]
-			left++
+		if cnt != 1 {
+			digits := []byte(strconv.Itoa(cnt))
+			for _, d := range digits {
+				chars[writeIdx] = d
+				writeIdx++
+			}
 		}
 
-		chars[left] = chars[right]
-		left = right
-		right++
-		fmt.Println(string(chars))
+		chars[writeIdx] = chars[i]
+		curChar = chars[writeIdx]
+		writeIdx++
+		cnt = 1
 	}
 
-	return left
+	if cnt != 1 {
+		digits := []byte(strconv.Itoa(cnt))
+		for _, d := range digits {
+			chars[writeIdx] = d
+			writeIdx++
+		}
+	}
 
+	return writeIdx
 }
