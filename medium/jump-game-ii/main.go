@@ -13,23 +13,29 @@ func main() {
 func jump(nums []int) int {
 	dp := make([]float64, len(nums))
 
-	for pos := len(nums) - 2; pos >= 0; pos-- {
+	prevMin := math.Inf(1)
 
-		jumps := nums[pos]
-		if pos+jumps >= len(nums)-1 {
-			dp[pos] = 1
+	for position := len(nums) - 2; position >= 0; position-- {
+		jumps := nums[position]
+		if position+jumps >= len(nums)-1 {
+			dp[position] = 1
+			prevMin = 1
 			continue
 		}
-		m := math.Inf(1)
-		dp[pos] = m
+		dp[position] = math.Inf(1)
 		if jumps == 0 {
 			continue
 		}
 
-		for j := pos + 1; j <= pos+jumps; j++ {
-			dp[pos] = math.Min(dp[j], dp[pos])
+		for j := position + 1; j <= position+jumps; j++ {
+			m := math.Min(dp[j], dp[position])
+			if m == prevMin {
+				dp[position] = prevMin
+				break
+			}
+			dp[position] = m
 		}
-		dp[pos]++
+		dp[position]++
 	}
 
 	return int(dp[0])
