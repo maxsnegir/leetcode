@@ -9,19 +9,14 @@ func main() {
 }
 
 func fullJustify(words []string, maxWidth int) []string {
-
 	buffer := make([]string, 0, maxWidth)
 	totalLen := 0
+
 	for _, word := range words {
 		if len(word) < len(buffer) {
 			buffer = append(buffer, word)
 			totalLen += len(word)
 			continue
-		}
-
-		spacesLeft := totalLen - len(buffer)
-		for _, b := range buffer {
-
 		}
 
 		buffer = make([]string, 0, maxWidth)
